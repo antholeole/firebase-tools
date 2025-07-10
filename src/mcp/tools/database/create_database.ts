@@ -47,7 +47,7 @@ export const get_data = tool(
 	},
 	async (
 		{ path, region: maybeRegion, instance: maybeInstance },
-		{ projectId },
+		{ projectId, host },
 	) => {
 		if (!path.startsWith("/")) {
 			return mcpError(`paths must start with '/' (you passed ''${path}')`);
@@ -69,6 +69,7 @@ export const get_data = tool(
 
 		const instance = maybeInstance ?? `${projectId}-default-rtdb`;
 		const dbHost = `${region}.firebasedatabase.app`;
+		console.log(dbHost, instance)
 		const dbUrl = getDatabaseUrl(dbHost, instance, `${path}.json`);
 
 		const urlObj = new url.URL(dbUrl);
